@@ -72,7 +72,7 @@ gulp.task('browserify', ['browserify-vendor'], function() {
  * same as browserify task, but will alse watch for changes and re-compile.
  */
 gulp.task('browserify-watch', ['browserify-vendor'], function() {
-    var bundler = watchify(browserify('app/amin.js', watchify.args));
+    var bundler = watchify(browserify('app/main.js', watchify.args));
     bundler.external(dependencies);
     bundler.transform(babelify);
     bundler.on('update', rebundle);
