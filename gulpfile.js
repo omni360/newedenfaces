@@ -8,7 +8,7 @@ var less = require('gulp-less');
 var concat = require('gulp-concat');
 var plumber = require('gulp-plumber');
 var source = require('vinyl-source-stream');
-var bableify = require('bableify');
+var babelify = require('babelify');
 var browserify = require('browserify');
 var watchify = require('watchify');
 var uglify = require('gulp-uglify');
@@ -59,7 +59,7 @@ gulp.task('browserify-vendor', function() {
 gulp.task('browserify', ['browserify-vendor'], function() {
     return browserify('app/main.js')
         .external(dependencies)
-        .transform(bableify)
+        .transform(babelify)
         .bundle()
         .pipe(source('bundle.js'))
         .pipe(gulpif(production, streamify(uglify({
@@ -85,7 +85,7 @@ gulp.task('browserify-watch', ['browserify-vendor'], function() {
                 gutil.log(gutil.colors.red(err.toString()));
             })
             .on('end', function() {
-                gulp.log(gutil.colors.green('Finished rebundling in', (Date.now() - start) + 'ms.'))
+                gutil.log(gutil.colors.green('Finished rebundling in', (Date.now() - start) + 'ms.'))
             })
             .pipe(source('bundle.js'))
             .pipe(gulp.dest('public/js/'));
